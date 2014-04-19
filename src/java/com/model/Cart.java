@@ -31,7 +31,7 @@ public class Cart {
         
         if(cookie == null){
             cookie = new Cookie("id", "");
-        }        
+        }                
     }    
     
     /**
@@ -44,6 +44,16 @@ public class Cart {
         value += id + "#";
         cookie = new Cookie("id", value);
         response.addCookie(cookie);
+    }
+    
+    public void addProduct(String id, int count, HttpServletResponse response){
+        removeProduct(id, response);
+        String value = cookie.getValue();        
+        for (int i = 0; i < count; i++) {      
+            value += id + "#";            
+        }   
+        cookie = new Cookie("id", value);
+        response.addCookie(cookie);            
     }
     
     /**

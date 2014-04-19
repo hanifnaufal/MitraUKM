@@ -21,8 +21,10 @@
     if (request.getMethod() == "POST") {
         String action = request.getParameter("action");
         String id = request.getParameter("id");
-        if (action != null && id != null) {
+        if (action.equals("hapus") && id != null) {
             cart.removeProduct(id, response);
+        }else if(action.equals("edit") && id != null){            
+            cart.addProduct(id, Integer.parseInt(request.getParameter("count")), response);
         }
     }
 
@@ -40,7 +42,7 @@
             } else {
                 counter.put(id, 1);
             }
-        }
+        }        
     }
     //List untuk menyimpan isi dari cart
     ArrayList<CartEntry> cartEntries = new ArrayList<CartEntry>();
@@ -93,15 +95,20 @@
                 <td><%=num++%></td>
                 <td><%=ce.getName()%></td>
                 <td><%=ce.getPrice()%></td>
-                <td><%=ce.getCount()%></td>
+                    <form method="POST">
+                <td><input type="text" name="count" value="<%=ce.getCount()%>"></td>
                 <td>
                     <%="Rp." + ce.total()%>
                 </td>
-                <td>
+                <td>                    
+                        <input type="hidden" name="id" value="<%=ce.getId()%>" />
+                        <input type="submit" name="action" value="edit" class="btn btn-primary"/>
+                    </form>    
+            
                     <form method="POST">
                         <input type="hidden" name="id" value="<%=ce.getId()%>" />
                         <input type="submit" name="action" value="hapus" class="btn btn-danger"/>
-                    </form>
+                    </form>                    
                 </td>
             </tr>
             <%}%>
