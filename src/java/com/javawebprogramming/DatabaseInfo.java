@@ -218,4 +218,27 @@ public class DatabaseInfo {
         }
         return result;
     }
+    
+    public Product getProduct(int id){
+        Product product = new Product();
+        try{
+            openConnection();
+            ResultSet res = stmt.executeQuery("SELECT * FROM product WHERE id="+id);
+            while(res.next()){
+                product.setId(res.getInt("id"));
+                product.setDetail(res.getString("detail"));
+                product.setFile_picture(res.getString("file_picture"));
+                product.setIsFeatured(res.getBoolean("isFeatured"));
+                product.setName(res.getString("name"));
+                product.setPrice(res.getDouble("price"));
+                product.setStock(res.getInt("stock"));
+                break;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseInfo.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            closeConnection();
+        }
+        return product;
+    }
 }
