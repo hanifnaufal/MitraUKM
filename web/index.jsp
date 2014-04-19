@@ -43,22 +43,25 @@
             <div class="row">                
 
             <%
+    
+                DatabaseInfo db = new DatabaseInfo();
+                ArrayList<Product> featured = db.getFeaturedProduct(4);
                 //mangambil featured product dari web service yang telah dibuat
-                List<ws.Product> featured = new ArrayList<ws.Product>();
-                try {
-                    ws.TokoWS_Service service = new ws.TokoWS_Service();
-                    ws.TokoWS port = service.getTokoWSPort();                    
-                    featured = port.getProductList();
-                    
-                } catch (Exception ex) {                    
-                }
-                    //menampilkan 4 hasil dari pengambilan produk
+//                List<ws.Product> featured = new ArrayList<ws.Product>();
+//                try {
+//                    ws.TokoWS_Service service = new ws.TokoWS_Service();
+//                    ws.TokoWS port = service.getTokoWSPort();                    
+//                    featured = port.getProductList();
+//                    
+//                } catch (Exception ex) {                    
+//                }
+//                    //menampilkan 4 hasil dari pengambilan produk
                     for(int i = 0; i < 4;i++){ 
-                        ws.Product x = featured.get(i);
+                        Product x = featured.get(i);
 
             %>
             <div class="col-md-3">                
-                <img width="246px" src="<%=x.getFilePictured()%>" alt="<%=x.getName()%>">
+                <img width="246px" src="<%=x.getFile_picture()%>" alt="<%=x.getName()%>">
                 <p class="text-center">
                     <%=x.getName()%>
                     <br>
