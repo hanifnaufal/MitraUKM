@@ -202,4 +202,20 @@ public class DatabaseInfo {
         }
         return user;        
     }
+    
+    public ArrayList<Product> searchProduct(String keyword){
+        ArrayList<Product> result = new ArrayList<Product>();                        
+        try{
+            openConnection();
+            ResultSet res = stmt.executeQuery("SELECT * FROM product WHERE name LIKE '%"+keyword+"%' OR detail LIKE '%" + keyword+"%'");
+            while(res.next()){
+                result.add(new Product(res.getInt(1), res.getString(2), res.getDouble(3), res.getInt(4), res.getString(5), res.getString(6), res.getInt(7) == 1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseInfo.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            closeConnection();
+        }
+        return result;
+    }
 }
