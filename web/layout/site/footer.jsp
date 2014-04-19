@@ -28,8 +28,11 @@
 			</div>
 		</div>
 	</footer>
+        <script>window.jQuery || document.write('<script src="assets/js/jquery-1.11.0.min.js"><\/script>')</script>
 	<script src="assets/js/jquery-1.11.0.min.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>			
 	<script src="assets/js/main.js"></script>
+        <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	<script src="assets/js/gmaps.js"></script>
 </body>
 </html>
