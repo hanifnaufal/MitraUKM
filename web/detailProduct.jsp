@@ -21,7 +21,7 @@
             <p><%= product.getDetail()%></p> 
             <p><%= product.getPrice()%></p> 
             <p><img src="<%= product.getFile_picture()%>"></p>
-            <form method="post" class="text-center">
+            <form method="post" class="text-center" action="AddCartHandler">
                 <input type="hidden" name="id" value="<%=product.getId()%>"/>
                 <button type="submit" name="action" value="add to cart" class="btn btn-default btn-lg" style="font-size: 14px" value="">
                     <span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart

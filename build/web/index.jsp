@@ -13,28 +13,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
    
 
-
-<%
-    boolean isAddToCart = false;
-    String idParam = "";
-    //jika terdapat request add cart
-    if (request.getMethod() == "POST") {
-        String action = request.getParameter("action");
-        idParam = request.getParameter("id");
-        if (action.equals("add to cart")) {
-            isAddToCart = true;
-        }
-    }
-    
-    if (isAddToCart) {
-        //tambahkan produk ke dalam cookies
-        Cart cart = new Cart(request.getCookies());        
-        cart.addProduct(idParam, response);      
-        response.sendRedirect("cart.jsp");
-    }
-    
-%>
-
 <jsp:include page="layout/site/header.jsp"></jsp:include>
     <div class="content">
         <div class="container">
@@ -68,7 +46,7 @@
                     %>
                     <br>
                     <!--form yang berfungsi untuk menambahkan barang ke dalam cart-->
-                <form method="post" class="text-center">
+                <form method="post" class="text-center" action="AddCartHandler">
                     <input type="hidden" name="id" value="<%=x.getId()%>"/>
                     <button type="submit" name="action" value="add to cart" class="btn btn-default btn-lg" style="font-size: 14px" value="">
                         <span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart
