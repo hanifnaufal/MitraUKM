@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-hudson-740-. --><xs:schema xmlns:tns="http://model.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://model.com/">
+
+<xs:element name="getProductList" type="tns:getProductList"></xs:element>
+
+<xs:element name="getProductListResponse" type="tns:getProductListResponse"></xs:element>
+
+<xs:complexType name="getProductList">
+<xs:sequence></xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getProductListResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Product" minOccurs="0" maxOccurs="unbounded"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Product">
+<xs:sequence>
+<xs:element name="id" type="xs:int"></xs:element>
+<xs:element name="name" type="xs:string"></xs:element>
+<xs:element name="price" type="xs:double"></xs:element>
+<xs:element name="stock" type="xs:int"></xs:element>
+<xs:element name="detail" type="xs:string"></xs:element>
+<xs:element name="file_pictured" type="xs:string"></xs:element>
+<xs:element name="isFeatured" type="xs:boolean"></xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

@@ -1,0 +1,22 @@
+/**/
+/*header*/
+/**/
+.main-header{
+	margin-top:20px;
+}
+
+/**/
+/*content*/
+/**/
+.modal-login{
+ 	margin-left: -160px;
+ 	width: 320px;
+ } 
+ .modal-login .modal-header,.modal-body,.modal-footer{
+ 	padding: 16px;
+ }
+
+ .modal-login .modal-header{ 	
+ 	background-position: 90% 30%;
+ 	background-size: 30%;
+ }
