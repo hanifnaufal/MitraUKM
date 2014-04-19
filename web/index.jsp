@@ -63,7 +63,9 @@
             <div class="col-md-3">                
                 <img width="246px" src="<%=x.getFile_picture()%>" alt="<%=x.getName()%>">
                 <p class="text-center">
-                    <%=x.getName()%>
+                    <%
+                        out.write("<a href='detailProduct.jsp?id="+x.getId()+"'>" + x.getName() + "</a>");
+                    %>
                     <br>
                     <!--form yang berfungsi untuk menambahkan barang ke dalam cart-->
                 <form method="post" class="text-center">
@@ -71,15 +73,15 @@
                     <button type="submit" name="action" value="add to cart" class="btn btn-default btn-lg" style="font-size: 14px" value="">
                         <span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart
                     </button>
-                </form>
+                </form>                                
 
                 </p>
                 <span class="price"> 
                     <%
                         out.write("Rp." + new DecimalFormat("##.##").format(x.getPrice()).replace(",", "."));
                     %>
-                </span>                
-            </div>							
+                </span>
+            </div>					
             <%}%>
 
         </div>
