@@ -145,7 +145,7 @@ public class DatabaseInfo {
             openConnection();
             ResultSet res = stmt.executeQuery(query);
             while(res.next()){
-                result.add(new Product(res.getInt(1), res.getString(2), res.getDouble(3), res.getInt(4), res.getString(5), res.getString(6), res.getInt(7) == 1));
+                result.add(new Product(res.getInt("id"), res.getString("name"), res.getDouble("price"), res.getInt("stock"), res.getString("detail"), res.getString("file_picture"), res.getInt("isFeatured") == 1));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseInfo.class.getName()).log(Level.SEVERE, null, ex);
