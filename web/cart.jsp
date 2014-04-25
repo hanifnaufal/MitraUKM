@@ -16,39 +16,41 @@
 <%
     //inisialisasi dari cart
     Cart cart = new Cart(request.getCookies());
-    
+
     //menangani delete cart entry
     if (request.getMethod() == "POST") {
         String action = request.getParameter("action");
         String id = request.getParameter("id");
         if (action.equals("hapus") && id != null) {
             cart.removeProduct(id, response);
-        }else if(action.equals("edit") && id != null){            
+        } else if (action.equals("edit") && id != null) {
             cart.addProduct(id, Integer.parseInt(request.getParameter("count")), response);
+        } else if (action.equals("batal")){
+            cart.removeAllProduct(id, response);
         }
     }
 
     //Map yang berfungsi untuk menyimpan kuantitas dari setiap produk
     HashMap<String, Integer> counter = new HashMap<String, Integer>();
-    
+
     //Menambahkan produk yang tersimpan dalam cookies ke dalam cart
     for (String id : cart.getList()) {
         if (id != null && !id.equals("")) {
             //jika id sudah ada tambahkan kuantitas
             if (counter.containsKey(id)) {
                 counter.put(id, counter.get(id) + 1);
-                
-            //jika id belum ada tambahkan baru
+
+                //jika id belum ada tambahkan baru
             } else {
                 counter.put(id, 1);
             }
-        }        
+        }
     }
     //List untuk menyimpan isi dari cart
     ArrayList<CartEntry> cartEntries = new ArrayList<CartEntry>();
     //harga total dari cart
     double total = 0;
-    
+
     //jika cart tidak kosong
     if (!counter.isEmpty()) {
         //query mengambil info barang dengan id yang terdapat pada cookies
@@ -57,8 +59,8 @@
             query += " id=" + id + " OR";
         }
         query = query.substring(0, query.length() - 3);
-                
-        DatabaseInfo db = new DatabaseInfo();        
+
+        DatabaseInfo db = new DatabaseInfo();
         //isi dari cart
         ArrayList<Product> result = db.getProductCart(query);
         //memindahkan hasil query ke dalam keranjang
@@ -95,21 +97,21 @@
                 <td><%=num++%></td>
                 <td><%=ce.getName()%></td>
                 <td><%=ce.getPrice()%></td>
-                    <form method="POST">
+            <form method="POST">
                 <td><input type="text" name="count" value="<%=ce.getCount()%>"></td>
                 <td>
                     <%="Rp." + ce.total()%>
                 </td>
                 <td>                    
-                        <input type="hidden" name="id" value="<%=ce.getId()%>" />
-                        <input type="submit" name="action" value="edit" class="btn btn-primary"/>
-                    </form>    
-            
-                    <form method="POST">
-                        <input type="hidden" name="id" value="<%=ce.getId()%>" />
-                        <input type="submit" name="action" value="hapus" class="btn btn-danger"/>
-                    </form>                    
-                </td>
+                    <input type="hidden" name="id" value="<%=ce.getId()%>" />
+                    <input type="submit" name="action" value="edit" class="btn btn-primary"/>
+            </form>    
+
+            <form method="POST">
+                <input type="hidden" name="id" value="<%=ce.getId()%>" />
+                <input type="submit" name="action" value="hapus" class="btn btn-danger"/>
+            </form>                    
+            </td>
             </tr>
             <%}%>
             <tr>
@@ -122,8 +124,10 @@
             </tr>                                
         </table>
         <p class="text-center">
+        <form method="POST">
             <button class="btn btn-primary">Beli</button>
-            <button class="btn btn-danger">Batalkan</button>
+            <button class="btn btn-danger" name="action" value="batal">Batalkan</button>
+        </form>
         </p>
 
     </div>

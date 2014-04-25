@@ -69,6 +69,11 @@ public class Cart {
         response.addCookie(cookie);
     }
     
+   public void removeAllProduct(String id, HttpServletResponse response){
+        cookie = new Cookie("id", "");
+        response.addCookie(cookie);
+    }
+    
     /**
      * Mengambil list id produk yang terdapat pada cookie
      * @return id produk yang ada di cookies
