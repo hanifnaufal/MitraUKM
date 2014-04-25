@@ -31,7 +31,7 @@
         String query = "UPDATE user set nama='" + nama + "', alamat='" + alamat + "', telepon='" + telepon + "' WHERE username='" + username.toString() + "'";
         db.doUpdate(query);
         response.sendRedirect("profil.jsp");
-    } else {
+    } else if(user.getAlamat() != null){
         alamat = user.getAlamat();
         nama = user.getNama();
         telepon = user.getTelepon();
