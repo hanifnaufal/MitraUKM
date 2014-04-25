@@ -6,6 +6,7 @@
 
 package com.javawebprogramming;
 
+import com.model.Category;
 import com.model.Product;
 import com.model.User;
 import java.sql.*;
@@ -240,5 +241,41 @@ public class DatabaseInfo {
             closeConnection();
         }
         return product;
+    }
+    
+    public ArrayList<Category> getAllCategory(){
+        ArrayList<Category> result = new ArrayList<Category>();                        
+        try{
+            openConnection();
+            ResultSet res = stmt.executeQuery("SELECT * FROM category");
+            while(res.next()){
+                result.add(new Category(res.getInt("id"),res.getString("name"),res.getString("description")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseInfo.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            closeConnection();
+        }
+        return result;
+    }
+    
+    
+    public Category getCategory(int id){
+        Category category = new Category();
+        try{
+            openConnection();
+            ResultSet res = stmt.executeQuery("SELECT * FROM category WHERE id="+id);
+            while(res.next()){
+                category.setId(res.getInt("id"));
+                category.setName(res.getString("name"));
+                category.setDescription(res.getString("description"));
+                break;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseInfo.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            closeConnection();
+        }
+        return category;
     }
 }
