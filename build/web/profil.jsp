@@ -12,9 +12,10 @@
     //mengambil isi session username
     Object username = sess.getAttribute("username");
     DatabaseInfo db = new DatabaseInfo();
-    User user = db.getUser(username.toString());
+    User user = db.getUser(username.toString());    
     if(user.getNama() == null){
         response.sendRedirect("editProfil.jsp");
+        return;
     }
 %>
 <jsp:include page="layout/site/header.jsp"></jsp:include>

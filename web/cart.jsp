@@ -124,8 +124,10 @@
             </tr>                                
         </table>
         <p class="text-center">
+        <form method="POST" action="AddTransactionHandler">
+            <input type="submit" class="btn btn-primary" value="Beli">
+        </form>            
         <form method="POST">
-            <button class="btn btn-primary">Beli</button>
             <button class="btn btn-danger" name="action" value="batal">Batalkan</button>
         </form>
         </p>

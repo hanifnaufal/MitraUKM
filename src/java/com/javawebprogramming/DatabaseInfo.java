@@ -7,12 +7,16 @@
 package com.javawebprogramming;
 
 import com.model.Category;
+import com.model.Order;
+import com.model.Orderlist;
 import com.model.Product;
 import com.model.User;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Date;
 
 
 /**
@@ -268,7 +272,7 @@ public class DatabaseInfo {
             while(res.next()){
                 category.setId(res.getInt("id"));
                 category.setName(res.getString("name"));
-                category.setDescription(res.getString("description"));
+                category.setDescription(res.getString("description"));                
                 break;
             }
         } catch (SQLException ex) {
@@ -277,5 +281,30 @@ public class DatabaseInfo {
             closeConnection();
         }
         return category;
+    }
+    
+    public void saveOrder(Order order, ArrayList<Orderlist> ol){        
+        try{
+            openConnection();
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String currentTime = sdf.format(order.getTanggalOrder());
+            String sql = "INSERT INTO `order`(tanggalOrder,idUser) VALUES('"+currentTime+"',"+order.getIdUser()+")";
+            PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.executeUpdate(); 
+            ResultSet rs = stmt.getGeneratedKeys();
+            rs.next();
+            int orderId = rs.getInt(1);            
+            for(Orderlist o:ol){
+                o.setIdOrder(orderId);
+                sql = "INSERT INTO `orderlist`(idProduct,idOrder,kuantitas) VALUES("+o.getIdProduct()+","+o.getIdOrder()+","+o.getKuantitas()+")";                                
+                this.stmt.executeUpdate(sql);
+            }
+            
+            stmt.close();
+        }catch(Exception e){}
+        finally{
+            closeConnection();
+        }
     }
 }
