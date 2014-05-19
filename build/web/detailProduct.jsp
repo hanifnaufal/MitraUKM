@@ -4,14 +4,19 @@
     Author     : hanifnaufal
 --%>
 
+<%@page import="javax.persistence.EntityManager"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="com.javawebprogramming.DatabaseInfo"%>
-<%@page import="com.model.Product"%>
+<%--<%@page import="com.model.Product"%>--%>
+<%@page import="com.entity.Product"%>
+<%@page import="com.javawebprogramming.CreateEntity"%>
    
 <%
-    DatabaseInfo db = new DatabaseInfo();    
+//    DatabaseInfo db = new DatabaseInfo();    
     int id = Integer.parseInt(request.getParameter("id"));
-    Product product = db.getProduct(id);
+    EntityManager em = CreateEntity.getInstance();
+//    Product product = db.getProduct(id);
+    Product product = em.find(Product.class, id);    
 %>
 <jsp:include page="layout/site/header.jsp"></jsp:include>
 
@@ -20,7 +25,7 @@
             <h3><%= product.getName()%></h3>
             <p><%= product.getDetail()%></p> 
             <p><%= product.getPrice()%></p> 
-            <p><img src="<%= product.getFile_picture()%>"></p>
+            <p><img src="<%= product.getFilePicture()%>"></p>
             <form method="post" class="text-center" action="AddCartHandler">
                 <input type="hidden" name="id" value="<%=product.getId()%>"/>
                 <button type="submit" name="action" value="add to cart" class="btn btn-default btn-lg" style="font-size: 14px" value="">
