@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : Feb 21, 2014, 11:46:27 AM
+    Document   : pembayaran
+    Created on : May 24, 2014, 11:20:56 AM
     Author     : hanifnaufal
 --%>
 
@@ -11,28 +11,12 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
-<%
-    //inisialisasi dari cart
+   
+<%    
     Cart cart = new Cart(request.getCookies());
-
-    //menangani delete cart entry
-    if (request.getMethod() == "POST") {
-        String action = request.getParameter("action");
-        String id = request.getParameter("id");
-        if (action.equals("hapus") && id != null) {
-            cart.removeProduct(id, response);
-        } else if (action.equals("edit") && id != null) {
-            cart.addProduct(id, Integer.parseInt(request.getParameter("count")), response);
-        } else if (action.equals("batal")) {
-            cart.removeAllProduct(id, response);
-        }
-    }
-
     //Map yang berfungsi untuk menyimpan kuantitas dari setiap produk
     HashMap<String, Integer> counter = new HashMap<String, Integer>();
-
+    
     //Menambahkan produk yang tersimpan dalam cookies ke dalam cart
     for (String id : cart.getList()) {
         if (id != null && !id.equals("")) {
@@ -76,11 +60,12 @@
         }
 
     }
-
 %>
+
+
 <jsp:include page="layout/site/header.jsp"></jsp:include>
     <div class="content">
-        <div class="container">                           
+        <div class="container">
             <table class="table table-striped table-hover">
                 <tr>
                     <td>No</td>
@@ -97,21 +82,11 @@
                 <td><%=num++%></td>
                 <td><%=ce.getName()%></td>
                 <td><%=ce.getPrice()%></td>
-            <form method="POST">
-                <td><input type="text" name="count" value="<%=ce.getCount()%>"></td>
+            
+                <td><%=ce.getCount()%></td>
                 <td>
                     <%="Rp." + ce.total()%>
-                </td>
-                <td>                    
-                    <input type="hidden" name="id" value="<%=ce.getId()%>" />
-                    <input type="submit" name="action" value="edit" class="btn btn-primary"/>
-            </form>    
-
-            <form method="POST">
-                <input type="hidden" name="id" value="<%=ce.getId()%>" />
-                <input type="submit" name="action" value="hapus" class="btn btn-danger"/>
-            </form>                    
-            </td>
+                </td>                
             </tr>
             <%}%>
             <tr>
@@ -123,46 +98,50 @@
                 <td></td>
             </tr>                                
         </table>
-        <!--<p class="text-center">-->
-        <%
-            if (request.getSession().getAttribute("username") != null) {
-        %>
-            <a href="#ProsedurPembayaran" class="btn btn-primary" data-toggle="modal">Beli</a>
-            <div class="modal fade bs-example-modal-sm" id="ProsedurPembayaran" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                
+                
+            <%
+                String prosedur = request.getParameter("prosedur");
+                if(prosedur.equals("cod")){
+            %>
+                    
+            <%
+                }else if(prosedur.equals("kartu")){
+            %>
+                    
+            <%        
+                }                                
+            %>
+            <h3><a href="#Potongan" data-toggle="modal">Potongan harga bank sampah!</a></h3>
+            <div class="modal fade bs-example-modal-sm" id="Potongan" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Prosedur pembayaran</h4>
+                            <h4 class="modal-title" id="myModalLabel">Potongan Harga Bank Sampah</h4>
                         </div>
                         <div class="modal-body">
-                            <form method="POST" action="pembayaran.jsp">
-                                    <label class="radio">
-                                        <input type="radio" name="prosedur" class="form-control" value="cod" required>                                    
-                                        COD(Bayar ditempat)
-                                    </label>
-                                    <label class="radio">
-                                        <input type="radio" name="prosedur" class="form-control" value="kartu" required>
-                                        Kartu Kredit
-                                    </label>                                                                                                                                             					  
-                                <button type="submit" class="btn btn-default">Lanjut</button>					
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>			        	
+                            <form role="form" method="post">                                
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input type="username" name="username" class="form-control" placeholder="Username" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" name="password" class="form-control" placeholder="Password" required>
+                                </div>					  			 					  
+                                <div class="form-group">
+                                    <label>Potongan harga</label>
+                                    <input type="number" name="password" class="form-control" placeholder="Potongan" required>
+                                </div>					  			 	
+                                <p>isi dengan akun bank sampah</p>
+                                <input type="submit" name="action" value="login" class="btn btn-default">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>			        	
                             </form>
                         </div>			      
                     </div>
                 </div>
             </div>
-<!--            <form method="POST" action="AddTransactionHandler">
-                <input type="submit" class="btn btn-primary" value="Beli">
-            </form>            -->
-        <% } else { %>            
-            <a href="#Login" class="btn btn-primary" data-toggle="modal">Beli</a>           
-        <%}%>
-        <form method="POST">
-            <button class="btn btn-danger" name="action" value="batal">Batalkan</button>
-        </form>
-        <!--</p>-->
-
+        </div>
     </div>
-</div>
 <jsp:include page="layout/site/footer.jsp"></jsp:include>

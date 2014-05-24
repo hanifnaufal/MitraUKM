@@ -15,9 +15,13 @@
     HttpSession sess = request.getSession();
     //mengambil isi session username
     Object username = sess.getAttribute("username");
+    if(username == null){
+        response.sendRedirect("index.jsp");
+        return;
+    }
     DatabaseInfo db = new DatabaseInfo();
     User user = db.getUser(username.toString());
-
+    
     String alamat = "";
     String nama = "";
     String telepon = "";
