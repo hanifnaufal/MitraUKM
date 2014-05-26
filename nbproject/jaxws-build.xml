@@ -45,10 +45,10 @@
     </target>
     <target name="wsimport-client-TokoWS" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/TokoWS"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/TokoWS" destdir="${build.generated.dir}/jax-wsCache/TokoWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/TokoWS/wsdl/localhost_8080/TokoOnline/TokoWS.wsdl" catalog="catalog.xml" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/TokoOnline/TokoWS?wsdl" xnocompile="true" xendorsed="true" package="ws">
+<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/TokoWS" destdir="${build.generated.dir}/jax-wsCache/TokoWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/TokoWS/wsdl/localhost_8080/TokoOnline/TokoWS.wsdl" catalog="catalog.xml" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/TokoOnline/TokoWS?wsdl" xnocompile="true" xendorsed="true" package="ws">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/TokoWS/wsdl/localhost_8080/TokoOnline/TokoWS.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/TokoWS"/>
-        </wsimport>
+        </wsimport>-->
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/TokoWS">
                 <include name="**/*.java"/>

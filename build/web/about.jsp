@@ -12,25 +12,42 @@
 
     <div class="content">
         <div class="container">
-            <h3>About Us</h3>  
+            <h3>About Us</h3> <hr>
             <div class="col-md-12 column">
                 <div class="row clearfix">
                     <div class="col-md-6 column">
-                        <div id="map"></div>
+                        <br> <div id="map"></div>
                     </div>
                     <div class="col-md-6 column">
                         <table style="width:600px">
                             <tr>
+                                <td  colspan="3"><h4>Kontak Kami:</h4></td>
+                            </tr>
+                            <tr></tr>
+                            <tr>
                                 <td>Nomer telepon</td>
+                                <td class="text-right">: &nbsp;</td>
                                 <td>08123456789</td> 
                             </tr>
                             <tr>
                                 <td>Email</td>
+                                <td class="text-right">: &nbsp;</td>
                                 <td>mitraukm@gmail.com</td> 
                             </tr>
                             <tr>
                                 <td>Alamat</td>
+                                <td class="text-right">: &nbsp;</td>
                                 <td>Jalan Fasilkom UI, Universitas Indonesia</td> 
+                            </tr>
+                            <tr><br></tr>
+                            <tr colspan="3">
+                                <td><h4>Tentang Kami</h4></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-justify">Sebuah perusahaan khusus yang menyalurkan hasil karya
+                                dari Usaha Kecil Menengah dengan sistematika kemudahan transaksi dan fasilitas yang modern.
+                                Toko Online yang dirancang untuk menyebar manfaat dari penggunaan uang virtual dari Bank Sampah.
+                                </td>
                             </tr>
                         </table>
                     </div>

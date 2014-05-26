@@ -13,7 +13,7 @@
 /********************************************************/
 
 .header-nav{
-	background-color:rgba(228, 230, 229, 0.85);	
+	background-color: #35c3d9;	
 }
 .user-nav{
  	background-color:#440628 ;
@@ -91,7 +91,7 @@ footer{
  	color:white;
  	padding: 30px 0; 	
  	line-height: 200%;
- 	margin-top: 80px;
+ 	margin-top: 50px;
  }
  footer a{
  	color: inherit;

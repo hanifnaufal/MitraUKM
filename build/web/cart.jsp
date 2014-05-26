@@ -81,6 +81,7 @@
 <jsp:include page="layout/site/header.jsp"></jsp:include>
     <div class="content">
         <div class="container">                           
+            <br>
             <table class="table table-striped table-hover">
                 <tr>
                     <td>No</td>
@@ -88,6 +89,7 @@
                     <td>Harga</td>
                     <td>Kuantitas</td>
                     <td>Subtotal</td>    
+                    <td></td>
                     <td></td>
                 </tr>
             <%                    int num = 1;
@@ -102,12 +104,13 @@
                 <td>
                     <%="Rp." + ce.total()%>
                 </td>
-                <td>                    
+                <td class="text-right">                    
                     <input type="hidden" name="id" value="<%=ce.getId()%>" />
                     <input type="submit" name="action" value="edit" class="btn btn-primary"/>
             </form>    
-
+                </td>
             <form method="POST">
+                <td>
                 <input type="hidden" name="id" value="<%=ce.getId()%>" />
                 <input type="submit" name="action" value="hapus" class="btn btn-danger"/>
             </form>                    
@@ -121,14 +124,23 @@
                 <td>Total</td>
                 <td><%="Rp." + total%></td>
                 <td></td>
+                <td></td>
             </tr>                                
-        </table>
-        <!--<p class="text-center">-->
-        <%
+            <tr>
+                <br>
+            </tr>
+            <tr>
+                <br>
+            </tr>
+            <tr>
+                <!--<p class="text-center">-->
+        
+                <td>
+                    <%
             if (request.getSession().getAttribute("username") != null) {
-        %>
-            <a href="#ProsedurPembayaran" class="btn btn-primary" data-toggle="modal">Beli</a>
-            <div class="modal fade bs-example-modal-sm" id="ProsedurPembayaran" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                %><div class="text-center">
+        <a href="#ProsedurPembayaran" class="btn btn-primary" data-toggle="modal">Beli</a></div>
+                <div class="modal fade bs-example-modal-sm" id="ProsedurPembayaran" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -138,11 +150,11 @@
                         <div class="modal-body">
                             <form method="POST" action="pembayaran.jsp">
                                     <label class="radio">
-                                        <input type="radio" name="prosedur" class="form-control" value="cod" required>                                    
+                                        <input type="radio" name="prosedur" class="form-control" value="cod" data-toggle="radio" required>                                    
                                         COD(Bayar ditempat)
                                     </label>
                                     <label class="radio">
-                                        <input type="radio" name="prosedur" class="form-control" value="kartu" required>
+                                        <input type="radio" name="prosedur" class="form-control" value="kartu" data-toggle="radio" required>
                                         Kartu Kredit
                                     </label>                                                                                                                                             					  
                                 <button type="submit" class="btn btn-default">Lanjut</button>					
@@ -157,12 +169,18 @@
             </form>            -->
         <% } else { %>            
             <a href="#Login" class="btn btn-primary" data-toggle="modal">Beli</a>           
-        <%}%>
-        <form method="POST">
+        <%}%></td>
+                <td><form method="POST">
             <button class="btn btn-danger" name="action" value="batal">Batalkan</button>
-        </form>
+        </form></td>
+        <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         <!--</p>-->
-
+        </table>
     </div>
 </div>
 <jsp:include page="layout/site/footer.jsp"></jsp:include>

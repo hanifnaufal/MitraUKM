@@ -10,10 +10,13 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Toko Online</title>
+        <title>Mitra UKM</title>
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/bootstrap-theme.css">
+<!--        <link rel="stylesheet" href="assets/css/bootstrap-theme.css">-->
         <link rel="stylesheet" href="assets/css/main.css">
+        <link href="assets/css/flat-ui.css" rel="stylesheet">
+        
+        <link rel="shortcut icon" href="assets/images/favicon.bmp">
     </head>
     <body>	
         <%
@@ -34,20 +37,33 @@
         <%}%>
 
        
-        <header>		
+        <header>
             <div class="header-nav">
                 <div class="container">
                     <div class="navbar-header">
-                        <a href="index.jsp" class="navbar-brand">Toko Online</a>
+                        <a href="index.jsp" class="navbar-brand"><img src="assets/images/mitraukm.png" height="50px"/></a>
                     </div>
+                        <form class="navbar-form" role="search" method="post" action="searchResult.jsp" width="100px" >
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search" name="keyword" id="srch-term">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+            <div class="header-nav">
+                <div class="container">
                     <nav role="navigation">
                         <ul class="nav navbar-nav">
                             <li>
-                                <a href="index.jsp">Home</a>
+                                <a href="index.jsp">HOME</a>
                             </li>
                             <li>
-                                <a href="cart.jsp">Cart</a>
-                            </li>	
+                                <a href="about.jsp">ABOUT</a>
+                            </li>
+                            	
                         </ul> 
 
                         <ul class="nav navbar-nav navbar-right">                            
@@ -56,22 +72,25 @@
                                 if (user == null) {
                             %>
                             <li>
-                                <a href="#Login" data-toggle="modal">Login</a>
+                                <a href="#Login" data-toggle="modal">LOGIN</a>
                             </li>      
                             <li>
-                                <a href="#SignUp" data-toggle="modal">Register</a>
+                                <a href="#SignUp" data-toggle="modal">REGISTER</a>
                             </li>        	
                             <%
                                 //jika sudah login
                                 } else {
                             %>
                             <li>
-                                <a href="profil.jsp">Profil</a>
+                                <a href="profil.jsp">PROFILE</a>
                             </li>      
                             <li>
-                                <a href="index.jsp?logout=true">Logout</a>
+                                <a href="index.jsp?logout=true">LOGOUT</a>
                             </li>        	
                             <%}%>
+                            <li>
+                                <a href="cart.jsp"><span class="glyphicon glyphicon-shopping-cart"></span>  CART</a>
+                            </li>
                         </ul> 
                     </nav>
 
@@ -138,12 +157,5 @@
         </header>
                         
         <div class="col-xs-5 col-sm-2 pull-right">
-            <form class="navbar-form" role="search" method="post" action="searchResult.jsp">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" name="keyword" id="srch-term">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                    </div>
-                </div>
-            </form>
+            
         </div>
