@@ -12,16 +12,18 @@
 
 
 <%
+    out.print(application.getRealPath("/").replaceAll("\\\\", "/"));
+    out.print("<br>");
+    out.print(request.getContextPath());
+//    out.print("abecde\\asldk".replaceAll("\\\\", "a"));
+//    out.print(application.getRealPath("/"));
+//    out.print(request.getServletPath());
     HttpSession sess = request.getSession();
     //mengambil isi session username
     Object username = sess.getAttribute("username");
-    if(username == null){
-        response.sendRedirect("index.jsp");
-        return;
-    }
     DatabaseInfo db = new DatabaseInfo();
     User user = db.getUser(username.toString());
-    
+
     String alamat = "";
     String nama = "";
     String telepon = "";
@@ -68,11 +70,10 @@
         </form>  
         <hr>
         Select a file to upload: <br />
-        <form action="UploadServlet" method="post"
-              enctype="multipart/form-data">
-            <input type="file" name="file" size="50" />
+        <form action="UploadServlet" method="post" enctype="multipart/form-data">
+            <input type="file" name="image" size="50" />
             <br />
-            <input type="submit" value="Upload File" />
+            <input type="submit" value="foto" name="cobafoto"/>
         </form>
     </div>
 </div>

@@ -4,6 +4,7 @@
     Author     : hanifnaufal
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="javax.persistence.EntityManager"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="com.javawebprogramming.DatabaseInfo"%>
@@ -22,16 +23,18 @@
 
     <div class="content">
         <div class="container">
+            <div class="col-md-4">
             <h3><%= product.getName()%></h3>
             <p><%= product.getDetail()%></p> 
-            <p><%= product.getPrice()%></p> 
+            <p><% out.write("Rp." + new DecimalFormat("##.##").format(product.getPrice()).replace(",", ".")); %></p> 
             <p><img src="<%= product.getFilePicture()%>"></p>
-            <form method="post" class="text-center" action="AddCartHandler">
+            <form method="post" class="text-left" action="AddCartHandler">
                 <input type="hidden" name="id" value="<%=product.getId()%>"/>
-                <button type="submit" name="action" value="add to cart" class="btn btn-default btn-lg" style="font-size: 14px" value="">
-                    <span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart
+                <button type="submit" name="action" value="add to cart" class="btn btn-block btn-lg btn-info" style="font-size: 14px" value="">
+                    <span class="glyphicon glyphicon-shopping-cart"></span> Tambahkan
                 </button>
-            </form>                                            
+            </form>
+            </div>
         </div>
     </div>
     

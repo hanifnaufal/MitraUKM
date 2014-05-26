@@ -12,7 +12,6 @@
         <meta charset="UTF-8">
         <title>Mitra UKM</title>
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<!--        <link rel="stylesheet" href="assets/css/bootstrap-theme.css">-->
         <link rel="stylesheet" href="assets/css/main.css">
         <link href="assets/css/flat-ui.css" rel="stylesheet">
         
@@ -28,7 +27,9 @@
             }
             //mengambil isi session username
             Object user = sess.getAttribute("username");
-            
+            boolean isAdmin;
+            if(sess.getAttribute("isAdmin")==null) isAdmin = false; else isAdmin = (Boolean) sess.getAttribute("isAdmin");
+
             //menampilkan error
             String error = request.getParameter("error");
             if (error != null) {
@@ -36,8 +37,8 @@
         <jsp:include page="../error.jsp"></jsp:include>
         <%}%>
 
-       
-        <header>
+
+        <header>		
             <div class="header-nav">
                 <div class="container">
                     <div class="navbar-header">
@@ -52,23 +53,42 @@
                             </div>
                         </form>
                 </div>
-            </div>
-            <div class="header-nav">
-                <div class="container">
+                <div class="header-nav">
+                    <div class="container">
                     <nav role="navigation">
                         <ul class="nav navbar-nav">
                             <li>
                                 <a href="index.jsp">HOME</a>
                             </li>
+                            <%
+                               // if (user == null) {
+                            %>
+                            <li>
+                                <a href="showProduct.jsp">ALL PRODUCT</a>
+                            </li>
+                            <li>
+                                <a href="cart.jsp"><span class="glyphicon glyphicon-shopping-cart"></span>  CART</a>
+                            </li>
+                            <%
+                             if(isAdmin){
+                            %>
+
+                            <li>
+                                <a href="admin/adminProduct.jsp">DAFTAR PRODUK</a>
+                            </li>	
+                            <li>
+                                <a href="admin/adminCategory.jsp">DAFTAR KATEGORI</a>
+                            </li>
+                            <%
+                                }
+                            %>
                             <li>
                                 <a href="about.jsp">ABOUT</a>
                             </li>
-                            	
                         </ul> 
 
                         <ul class="nav navbar-nav navbar-right">                            
-                            <%
-                                //Jika belum login
+                            <%                                //Jika belum login
                                 if (user == null) {
                             %>
                             <li>
@@ -79,21 +99,21 @@
                             </li>        	
                             <%
                                 //jika sudah login
-                                } else {
+                            } else {
                             %>
+                            <li> <a class="text-center"> Selamat datang <%=user%> !</a></li>
                             <li>
-                                <a href="profil.jsp">PROFILE</a>
+                                <a href="profil.jsp">PROFIL</a>
                             </li>      
                             <li>
-                                <a href="index.jsp?logout=true">LOGOUT</a>
+                                <a href="index.jsp?logout=true"><i class="glyphicon glyphicon-off"></i>  LOGOUT</a>
                             </li>        	
                             <%}%>
-                            <li>
-                                <a href="cart.jsp"><span class="glyphicon glyphicon-shopping-cart"></span>  CART</a>
-                            </li>
                         </ul> 
                     </nav>
-
+                </div>
+            </div>
+                        
 
                     <div class="modal fade bs-example-modal-sm" id="Login" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-sm">
@@ -155,7 +175,4 @@
                 </div>
             </div>
         </header>
-                        
-        <div class="col-xs-5 col-sm-2 pull-right">
-            
-        </div>
+        

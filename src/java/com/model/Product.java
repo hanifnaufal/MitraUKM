@@ -33,12 +33,22 @@ public class Product {
     private String file_picture;
     @XmlElement(name="isFeatured",required = true)
     private boolean isFeatured;
+    @XmlElement(name="idcategory",required = true)
+    private int idcategory;
+
+    public int getIdcategory() {
+        return idcategory;
+    }
+
+    public void setIdcategory(int idcategory) {
+        this.idcategory = idcategory;
+    }
 
     public Product() {
     }
 
     
-    public Product(int id, String name, double price, int stock, String detail, String file_picture, boolean isFeatured) {
+    public Product(int id, String name, double price, int stock, String detail, String file_picture, boolean isFeatured, int idcategory) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -46,6 +56,7 @@ public class Product {
         this.detail = detail;
         this.file_picture = file_picture;
         this.isFeatured = isFeatured;
+        this.idcategory = idcategory;
     }
     public String getRupiahPrice(){     
         DecimalFormat format = new DecimalFormat("###,###");                

@@ -150,13 +150,14 @@
                         <div class="modal-body">
                             <form method="POST" action="pembayaran.jsp">
                                     <label class="radio">
-                                        <input type="radio" name="prosedur" class="form-control" value="cod" data-toggle="radio" required>                                    
-                                        COD(Bayar ditempat)
+                                        <input type="radio" name="prosedur" class="form-control" value="cod" data-toggle="radio" color="black" required>                                    
+                                        COD (Bayar ditempat)
                                     </label>
                                     <label class="radio">
                                         <input type="radio" name="prosedur" class="form-control" value="kartu" data-toggle="radio" required>
                                         Kartu Kredit
-                                    </label>                                                                                                                                             					  
+                                    </label>                       
+                                <input type="hidden" name="potongan" value="0" class="btn btn-default">
                                 <button type="submit" class="btn btn-default">Lanjut</button>					
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>			        	
                             </form>

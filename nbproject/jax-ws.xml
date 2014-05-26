@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
-    <service name="TokoWS">
-      <implementation-class>com.model.TokoWS</implementation-class>
-    </service>
   </services>
   <clients>
-    <client name="TokoWS">
-      <wsdl-url>http://localhost:8080/TokoOnline/TokoWS?wsdl</wsdl-url>
-      <local-wsdl-file>localhost_8080/TokoOnline/TokoWS.wsdl</local-wsdl-file>
-      <package-name forceReplace="true">ws</package-name>
+    <client name="Forex">
+      <wsdl-url>http://fws.cs.ui.ac.id/ForeignExchange/Forex?wsdl</wsdl-url>
+      <local-wsdl-file>fws.cs.ui.ac.id/ForeignExchange/Forex.wsdl</local-wsdl-file>
+      <package-name forceReplace="true">forex</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -26,7 +23,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:8080/TokoOnline/TokoWS?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://fws.cs.ui.ac.id/ForeignExchange/Forex?wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -38,7 +35,43 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>package</wsimport-option-name>
-          <wsimport-option-value>ws</wsimport-option-value>
+          <wsimport-option-value>forex</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </client>
+    <client name="BankSampahOnlineUangVirtual">
+      <wsdl-url>http://chosensan.cloudapp.net:8080/BankSampahOnline/BankSampahOnlineUangVirtual?wsdl</wsdl-url>
+      <local-wsdl-file>chosensan.cloudapp.net_8080/BankSampahOnline/BankSampahOnlineUangVirtual.wsdl</local-wsdl-file>
+      <package-name forceReplace="true">bankSampah</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>fork</wsimport-option-name>
+          <wsimport-option-value>false</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>wsdlLocation</wsimport-option-name>
+          <wsimport-option-value>http://chosensan.cloudapp.net:8080/BankSampahOnline/BankSampahOnlineUangVirtual?wsdl</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xendorsed</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>package</wsimport-option-name>
+          <wsimport-option-value>bankSampah</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
     </client>

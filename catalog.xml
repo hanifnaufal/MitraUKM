@@ -2,4 +2,8 @@
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="http://localhost:8080/TokoOnline/TokoWS?wsdl" uri="src/conf/xml-resources/web-service-references/TokoWS/wsdl/localhost_8080/TokoOnline/TokoWS.wsdl"/>
     <system systemId="http://localhost:8080/TokoOnline/TokoWS?xsd=1" uri="src/conf/xml-resources/web-service-references/TokoWS/wsdl/localhost_8080/TokoOnline/TokoWS.xsd_1.xsd"/>
+    <system systemId="http://fws.cs.ui.ac.id/ForeignExchange/Forex?wsdl" uri="src/conf/xml-resources/web-service-references/Forex/wsdl/fws.cs.ui.ac.id/ForeignExchange/Forex.wsdl"/>
+    <system systemId="http://fws.cs.ui.ac.id:80/ForeignExchange/Forex?xsd=1" uri="src/conf/xml-resources/web-service-references/Forex/wsdl/fws.cs.ui.ac.id_80/ForeignExchange/Forex.xsd_1.xsd"/>
+    <system systemId="http://chosensan.cloudapp.net:8080/BankSampahOnline/BankSampahOnlineUangVirtual?wsdl" uri="src/conf/xml-resources/web-service-references/BankSampahOnlineUangVirtual/wsdl/chosensan.cloudapp.net_8080/BankSampahOnline/BankSampahOnlineUangVirtual.wsdl"/>
+    <system systemId="http://chosensan.cloudapp.net:8080/BankSampahOnline/BankSampahOnlineUangVirtual?xsd=1" uri="src/conf/xml-resources/web-service-references/BankSampahOnlineUangVirtual/wsdl/chosensan.cloudapp.net_8080/BankSampahOnline/BankSampahOnlineUangVirtual.xsd_1.xsd"/>
 </catalog>

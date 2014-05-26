@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.javawebprogramming;
 
 import com.model.Category;
@@ -18,24 +17,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Date;
 
-
 /**
  *
  * @author hanifnaufal
  */
 public class DatabaseInfo {
+
     public static final String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
     public static final String DATABASE_URL = "jdbc:mysql://localhost/tokoonline";
     public static final String DATABASE_USERNAME = "root";
     public static final String DATABASE_PASSWORD = "";
     private Connection con = null;
     private Statement stmt = null;
-    
-   /**
-    * Membuka koneksi database
-    */ 
-    private void openConnection(){
-        try {        
+
+    /**
+     * Membuka koneksi database
+     */
+    private void openConnection() {
+        try {
             Class.forName(DATABASE_DRIVER);
             con = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
             stmt = con.createStatement();
@@ -45,19 +44,20 @@ public class DatabaseInfo {
             Logger.getLogger(DatabaseInfo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * Menutup koneksi database
      */
-    private void closeConnection(){
-        if(stmt != null){
+    private void closeConnection() {
+        if (stmt != null) {
             try {
                 stmt.close();
             } catch (SQLException ex) {
                 Logger.getLogger(DatabaseInfo.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-        if(con != null){
+
+        if (con != null) {
             try {
                 con.close();
             } catch (SQLException ex) {
@@ -65,112 +65,116 @@ public class DatabaseInfo {
             }
         }
     }
-    
+
     /**
-     * melakukan kueri update 
+     * melakukan kueri update
+     *
      * @param query kueri
      * @return banyak row db yang terkait
      */
-    public int doUpdate(String query){
+    public int doUpdate(String query) {
         int ret = 0;
-        try {            
+        try {
             openConnection();
-            ret = stmt.executeUpdate(query);            
+            ret = stmt.executeUpdate(query);
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseInfo.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             closeConnection();
         }
         return ret;
-    }    
-    
+    }
+
     /**
      * melakukan login
+     *
      * @param userName username
      * @param password password
      * @return status keberhasilan
      */
-    public boolean login(String userName, String password){
+    public boolean login(String userName, String password) {
         boolean authenticated = false;
-        String query = "select count(*) from user where username='"+userName+"' and password='"+ password + "'";        
-        try{
+        String query = "select count(*) from user where username='" + userName + "' and password='" + password + "'";
+        try {
             openConnection();
-            ResultSet res; 
+            ResultSet res;
             res = stmt.executeQuery(query);
-            while(res.next()){
-                authenticated = res.getInt(1) == 1; 
+            while (res.next()) {
+                authenticated = res.getInt(1) == 1;
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseInfo.class.getName()).log(Level.SEVERE, null, ex);
-        }finally { 
+        } finally {
             closeConnection();
         }
-            
-        
+
         return authenticated;
     }
-    
+
     /**
      * mengecek duplikasi username
+     *
      * @param username username yang akan dicek
-     * @return status duplikasi username 
+     * @return status duplikasi username
      */
-    public boolean isUserExist(String username){
+    public boolean isUserExist(String username) {
         boolean exist = false;
-        String query = "SELECT COUNT(*) FROM user WHERE username='"+username+"'";
-        try{
+        String query = "SELECT COUNT(*) FROM user WHERE username='" + username + "'";
+        try {
             openConnection();
             ResultSet res = stmt.executeQuery(query);
-            while(res.next()){
+            while (res.next()) {
                 exist = res.getInt(1) == 1;
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseInfo.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             closeConnection();
         }
-        return exist;        
+        return exist;
     }
-    
+
     /**
      * Mengambil featured product
+     *
      * @param limit jumlah maksimal yang diambil, jika -1 tidak ada limit
      * @return featured product
      */
-    public ArrayList<Product> getFeaturedProduct(int limit){
+    public ArrayList<Product> getFeaturedProduct(int limit) {
         ArrayList<Product> result = new ArrayList<Product>();
         String query;
-        if(limit != -1){
-             query = "SELECT * FROM product WHERE isFeatured=1 LIMIT 0,"+limit;        
-        }else{
+        if (limit != -1) {
+            query = "SELECT * FROM product WHERE isFeatured=1 LIMIT 0," + limit;
+        } else {
             query = "SELECT * FROM product WHERE isFeatured=1";
         }
-        
-        try{
+
+        try {
             openConnection();
             ResultSet res = stmt.executeQuery(query);
-            while(res.next()){
-                result.add(new Product(res.getInt("id"), res.getString("name"), res.getDouble("price"), res.getInt("stock"), res.getString("detail"), res.getString("file_picture"), res.getInt("isFeatured") == 1));
+            while (res.next()) {
+                result.add(new Product(res.getInt("id"), res.getString("name"), res.getDouble("price"), res.getInt("stock"), res.getString("detail"), res.getString("file_picture"), res.getInt("isFeatured") == 1, res.getInt("idcategory")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseInfo.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             closeConnection();
         }
-        return result;        
+        return result;
     }
-    
+
     /**
-     * mengambil produk 
-     * @param query 
+     * mengambil produk
+     *
+     * @param query
      * @return produk
      */
-    public ArrayList<Product> getProductCart(String query){
-        ArrayList<Product> result = new ArrayList<Product>();                        
-        try{
+    public ArrayList<Product> getProductCart(String query) {
+        ArrayList<Product> result = new ArrayList<Product>();
+        try {
             openConnection();
             ResultSet res = stmt.executeQuery(query);
-            while(res.next()){
+            while (res.next()) {
                 Product p = new Product();
                 p.setId(res.getInt("id"));
                 p.setName(res.getString("name"));
@@ -179,57 +183,59 @@ public class DatabaseInfo {
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseInfo.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             closeConnection();
         }
         return result;
-        
-    }                
-    
-    public User getUser(String username){
+
+    }
+
+    public User getUser(String username) {
         User user = new User();
-        try{
+        try {
             openConnection();
-            ResultSet res = stmt.executeQuery("SELECT * FROM user WHERE username='"+username+"'");
-            while(res.next()){
+            ResultSet res = stmt.executeQuery("SELECT * FROM user WHERE username='" + username + "'");
+            while (res.next()) {
                 user.setId(res.getInt("id"));
                 user.setAlamat(res.getString("alamat"));
                 user.setEmail(res.getString("email"));
                 user.setNama(res.getString("nama"));
                 user.setTelepon(res.getString("telepon"));
                 user.setUsername(res.getString("username"));
+                user.setIsAdmin(res.getInt("isAdmin") == 1);
                 break;
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseInfo.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             closeConnection();
         }
-        return user;        
+        return user;
     }
-    
-    public ArrayList<Product> searchProduct(String keyword){
-        ArrayList<Product> result = new ArrayList<Product>();                        
-        try{
+
+    public ArrayList<Product> searchProduct(String keyword) {
+        ArrayList<Product> result = new ArrayList<Product>();
+        try {
             openConnection();
-            ResultSet res = stmt.executeQuery("SELECT * FROM product WHERE name LIKE '%"+keyword+"%' OR detail LIKE '%" + keyword+"%'");
-            while(res.next()){
-                result.add(new Product(res.getInt(1), res.getString(2), res.getDouble(3), res.getInt(4), res.getString(5), res.getString(6), res.getInt(7) == 1));
+            ResultSet res = stmt.executeQuery("SELECT * FROM product WHERE name LIKE '%" + keyword + "%' OR detail LIKE '%" + keyword + "%'");
+            while (res.next()) {
+                //result.add(new Product(res.getInt(1), res.getString(2), res.getDouble(3), res.getInt(4), res.getString(5), res.getString(6), res.getInt(7) == 1, res.getInt("idcategory")));
+                result.add(new Product(res.getInt("id"), res.getString("name"), res.getDouble("price"), res.getInt("stock"), res.getString("detail"), res.getString("file_picture"), res.getBoolean("isFeatured"), res.getInt("idcategory")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseInfo.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             closeConnection();
         }
         return result;
     }
-    
-    public Product getProduct(int id){
+
+    public Product getProduct(int id) {
         Product product = new Product();
-        try{
+        try {
             openConnection();
-            ResultSet res = stmt.executeQuery("SELECT * FROM product WHERE id="+id);
-            while(res.next()){
+            ResultSet res = stmt.executeQuery("SELECT * FROM product WHERE id=" + id);
+            while (res.next()) {
                 product.setId(res.getInt("id"));
                 product.setDetail(res.getString("detail"));
                 product.setFile_picture(res.getString("file_picture"));
@@ -237,73 +243,126 @@ public class DatabaseInfo {
                 product.setName(res.getString("name"));
                 product.setPrice(res.getDouble("price"));
                 product.setStock(res.getInt("stock"));
+                product.setIdcategory(res.getInt("idcategory"));
                 break;
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseInfo.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             closeConnection();
         }
         return product;
     }
-    
-    public ArrayList<Category> getAllCategory(){
-        ArrayList<Category> result = new ArrayList<Category>();                        
-        try{
+
+    //Cari produk berdasar kategori tertentu
+    public ArrayList<Product> getAllProdux(int idCategory) {
+        Product product;
+        ArrayList<Product> result = new ArrayList<Product>();
+        try {
             openConnection();
-            ResultSet res = stmt.executeQuery("SELECT * FROM category");
-            while(res.next()){
-                result.add(new Category(res.getInt("id"),res.getString("name"),res.getString("description")));
+            ResultSet res = stmt.executeQuery("SELECT * FROM product WHERE idcategory=" + idCategory);
+            while (res.next()) {
+                product = new Product();
+                product.setId(res.getInt("id"));
+                product.setDetail(res.getString("detail"));
+                product.setFile_picture(res.getString("file_picture"));
+                product.setIsFeatured(res.getBoolean("isFeatured"));
+                product.setName(res.getString("name"));
+                product.setPrice(res.getDouble("price"));
+                product.setStock(res.getInt("stock"));
+                product.setIdcategory(res.getInt("idcategory"));
+                result.add(product);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DatabaseInfo.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+            Logger.getLogger(DatabaseInfo3.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
             closeConnection();
         }
         return result;
     }
-    
-    
-    public Category getCategory(int id){
-        Category category = new Category();
-        try{
+
+    public ArrayList<Product> getAllProduct() {
+        Product product;
+        ArrayList<Product> result = new ArrayList<Product>();
+        try {
             openConnection();
-            ResultSet res = stmt.executeQuery("SELECT * FROM category WHERE id="+id);
-            while(res.next()){
+            ResultSet res = stmt.executeQuery("SELECT * FROM product");
+            while (res.next()) {
+                product = new Product();
+                product.setId(res.getInt("id"));
+                product.setDetail(res.getString("detail"));
+                product.setFile_picture(res.getString("file_picture"));
+                product.setIsFeatured(res.getBoolean("isFeatured"));
+                product.setName(res.getString("name"));
+                product.setPrice(res.getDouble("price"));
+                product.setStock(res.getInt("stock"));
+                product.setIdcategory(res.getInt("idcategory"));
+                result.add(product);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseInfo3.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
+
+    public ArrayList<Category> getAllCategory() {
+        ArrayList<Category> result = new ArrayList<Category>();
+        try {
+            openConnection();
+            ResultSet res = stmt.executeQuery("SELECT * FROM category");
+            while (res.next()) {
+                result.add(new Category(res.getInt("id"), res.getString("name"), res.getString("description")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseInfo.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
+
+    public Category getCategory(int id) {
+        Category category = new Category();
+        try {
+            openConnection();
+            ResultSet res = stmt.executeQuery("SELECT * FROM category WHERE id=" + id);
+            while (res.next()) {
                 category.setId(res.getInt("id"));
                 category.setName(res.getString("name"));
-                category.setDescription(res.getString("description"));                
+                category.setDescription(res.getString("description"));
                 break;
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseInfo.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             closeConnection();
         }
         return category;
     }
-    
-    public void saveOrder(Order order, ArrayList<Orderlist> ol){        
-        try{
+
+    public void saveOrder(Order order, ArrayList<Orderlist> ol) {
+        try {
             openConnection();
-            
+
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String currentTime = sdf.format(order.getTanggalOrder());
-            String sql = "INSERT INTO `order`(tanggalOrder,idUser) VALUES('"+currentTime+"',"+order.getIdUser()+")";
+            String sql = "INSERT INTO `order`(tanggalOrder,idUser) VALUES('" + currentTime + "'," + order.getIdUser() + ")";
             PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.executeUpdate(); 
+            stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
-            int orderId = rs.getInt(1);            
-            for(Orderlist o:ol){
+            int orderId = rs.getInt(1);
+            for (Orderlist o : ol) {
                 o.setIdOrder(orderId);
-                sql = "INSERT INTO `orderlist`(idProduct,idOrder,kuantitas) VALUES("+o.getIdProduct()+","+o.getIdOrder()+","+o.getKuantitas()+")";                                
+                sql = "INSERT INTO `orderlist`(idProduct,idOrder,kuantitas) VALUES(" + o.getIdProduct() + "," + o.getIdOrder() + "," + o.getKuantitas() + ")";
                 this.stmt.executeUpdate(sql);
             }
-            
+
             stmt.close();
-        }catch(Exception e){}
-        finally{
+        } catch (Exception e) {
+        } finally {
             closeConnection();
         }
     }

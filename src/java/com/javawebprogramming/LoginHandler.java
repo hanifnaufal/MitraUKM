@@ -86,7 +86,9 @@ public class LoginHandler extends HttpServlet {
         if(db.login(userName, password)){
             HttpSession sess = request.getSession();
             sess.setAttribute("username", userName);
-            
+            boolean isAdmin = false;
+            if(db.getUser(userName).isIsAdmin() == true) isAdmin = true;
+            sess.setAttribute("isAdmin", isAdmin);
             response.sendRedirect("index.jsp");
         }else{
             response.sendRedirect("index.jsp?error=0");

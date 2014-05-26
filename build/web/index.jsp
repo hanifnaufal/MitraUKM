@@ -11,25 +11,30 @@
 <%@page import="java.util.List"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-   
 
 <jsp:include page="layout/site/header.jsp"></jsp:include>
-    <div class="content">
-        <div class="container">
-            <div class="col-md-12 clearfix"><h3 class="text-center">Penawaran Spesial dari Kami untuk Anda</h3><hr>
+<%
+    HttpSession sess = request.getSession();
+    Object user = sess.getAttribute("username");
+%>
+<div class="content">
+    <div class="container">
+        <div class="col-md-12 clearfix"><h3 class="text-center">Penawaran Spesial dari Kami untuk Anda</h3><hr>
                 <div class="text-center">
                     <div class="col-md-4"><img src="assets/images/kolom1.png"><br><br><br></div>
                     <div class="col-md-4"><img src="assets/images/kolom2.png"><br><br><br></div>
                     <div class="col-md-4"><img src="assets/images/kolom3.png"><br><br><br></div>
                 </div>
             </div>
-            
-            <h4 class="producttitle">Produk Pilihan</h4>
+        <%
+           // if (user == null) {
+        %>
+        <h4 class="producttitle">Produk Pilihan</h4>
             <hr>
-            <div class="row">                
+        <%//}%>
+        <div class="row">                
 
             <%
-    
                 DatabaseInfo db = new DatabaseInfo();
                 ArrayList<Product> featured = db.getFeaturedProduct(4);
                 //mangambil featured product dari web service yang telah dibuat
@@ -42,8 +47,14 @@
 //                } catch (Exception ex) {                    
 //                }
 //                    //menampilkan 4 hasil dari pengambilan produk
-                    for(int i = 0; i < 4;i++){ 
-                        Product x = featured.get(i);
+//                if (user != null) {<jsp:include page="admin/adminProduct.jsp"></jsp:include>
+            %>
+         
+
+            <%
+            //} else {
+                for (int i = 0; i < 4; i++) {
+                    Product x = featured.get(i);
 
             %>
             <div class="col-md-3">                
@@ -75,10 +86,11 @@
                             </td>
                         </tr>
                     </table>
-                </p>
                 
-            </div>					
-            <%}%>
+                
+            </div>
+            <%}
+                //}%>
 
         </div>
     </div>

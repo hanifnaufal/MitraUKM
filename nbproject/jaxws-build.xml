@@ -10,23 +10,6 @@
                 JAX-WS WSGEN SECTION
                 ===================
             -->
-    <target name="wsgen-init" depends="init, -do-compile">
-        <mkdir dir="${build.generated.sources.dir}/jax-ws/resources/"/>
-        <mkdir dir="${build.classes.dir}"/>
-        <mkdir dir="${build.classes.dir}/META-INF"/>
-        <property name="j2ee.platform.wsgen.classpath" value="${libs.jaxws21.classpath}"/>
-        <taskdef name="wsgen" classname="com.sun.tools.ws.ant.WsGen">
-            <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
-        </taskdef>
-    </target>
-    <target name="wsgen-TokoWS" depends="wsgen-init">
-        <copy todir="${build.classes.dir}/META-INF">
-            <fileset dir="${webinf.dir}" includes="wsit-com.model.TokoWS.xml"/>
-        </copy>
-        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="com.model.TokoWS" xendorsed="true">
-            <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
-        </wsgen>
-    </target>
     <!--
                 ===================
                 JAX-WS WSIMPORT SECTION
@@ -43,21 +26,37 @@
             <isset property="conf.dir"/>
         </condition>
     </target>
-    <target name="wsimport-client-TokoWS" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/TokoWS"/>
-<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/TokoWS" destdir="${build.generated.dir}/jax-wsCache/TokoWS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/TokoWS/wsdl/localhost_8080/TokoOnline/TokoWS.wsdl" catalog="catalog.xml" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/TokoOnline/TokoWS?wsdl" xnocompile="true" xendorsed="true" package="ws">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/TokoWS/wsdl/localhost_8080/TokoOnline/TokoWS.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/TokoWS"/>
-        </wsimport>-->
+    <target name="wsimport-client-Forex" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/Forex"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Forex" destdir="${build.generated.dir}/jax-wsCache/Forex" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/Forex/wsdl/fws.cs.ui.ac.id/ForeignExchange/Forex.wsdl" catalog="catalog.xml" extension="true" verbose="true" fork="false" wsdlLocation="http://fws.cs.ui.ac.id/ForeignExchange/Forex?wsdl" xnocompile="true" xendorsed="true" package="forex">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/Forex/wsdl/fws.cs.ui.ac.id/ForeignExchange/Forex.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/Forex"/>
+        </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/TokoWS">
+            <fileset dir="${build.generated.dir}/jax-wsCache/Forex">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
     </target>
-    <target name="wsimport-client-clean-TokoWS" depends="-init-project">
-        <delete dir="${build.generated.sources.dir}/jax-ws/ws"/>
-        <delete dir="${build.generated.dir}/jax-wsCache/TokoWS"/>
+    <target name="wsimport-client-clean-Forex" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/forex"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/Forex"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-TokoWS"/>
+    <target name="wsimport-client-BankSampahOnlineUangVirtual" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/BankSampahOnlineUangVirtual"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/BankSampahOnlineUangVirtual" destdir="${build.generated.dir}/jax-wsCache/BankSampahOnlineUangVirtual" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/BankSampahOnlineUangVirtual/wsdl/chosensan.cloudapp.net_8080/BankSampahOnline/BankSampahOnlineUangVirtual.wsdl" catalog="catalog.xml" extension="true" verbose="true" fork="false" wsdlLocation="http://chosensan.cloudapp.net:8080/BankSampahOnline/BankSampahOnlineUangVirtual?wsdl" xnocompile="true" xendorsed="true" package="bankSampah">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/BankSampahOnlineUangVirtual/wsdl/chosensan.cloudapp.net_8080/BankSampahOnline/BankSampahOnlineUangVirtual.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/BankSampahOnlineUangVirtual"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/BankSampahOnlineUangVirtual">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-BankSampahOnlineUangVirtual" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/bankSampah"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/BankSampahOnlineUangVirtual"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-Forex, wsimport-client-BankSampahOnlineUangVirtual"/>
 </project>

@@ -21,6 +21,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../assets/css/bootstrap-theme.css">
+        <link rel="stylesheet" href="../assets/css/main.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
@@ -30,7 +33,7 @@
             <%
                 int no = 1;
             %>            
-        <table>
+        <table class="table">
             <thead>
                 <td>No.</td>
                 <td>Nama</td>
@@ -45,12 +48,12 @@
                 <td>
                     <form method="post" action="editCategory.jsp">
                         <input type="hidden" value="<%=c.getId()%>" name="id">
-                        <input type="submit" name="submit" value="Ubah">
+                        <input class="btn btn-block btn-default"type="submit" name="submit" value="Ubah">
                     </form>
 
                     <form method="post">
                         <input type="hidden" value="<%=c.getId()%>" name="deletedId">
-                        <input type="submit" name="delete" value="hapus">
+                        <input class="btn btn-block btn-danger" type="submit" name="delete" value="hapus">
                     </form>
                 </td>
             </tr>

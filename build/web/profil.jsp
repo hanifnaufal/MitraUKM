@@ -11,10 +11,6 @@
     HttpSession sess = request.getSession();    
     //mengambil isi session username
     Object username = sess.getAttribute("username");
-    if(username == null){
-        response.sendRedirect("index.jsp"); 
-        return;
-    }
     DatabaseInfo db = new DatabaseInfo();
     User user = db.getUser(username.toString());    
     if(user.getNama() == null){
@@ -26,13 +22,65 @@
 
     <div class="content">
         <div class="container">
-            <h3>Profil</h3>         
-              <p><label>Nama </label> <% out.write(user.getNama());%></p>
-              <p><label>Alamat </label><% out.write(user.getAlamat());%></p>
-              <p><label>Telepon </label><% out.write(user.getTelepon());%></p>              
-            <a href="editProfil.jsp" class="btn btn-default">Ubah</a>
-          </form>                                           
+            <div class="col-md-5">
+                 <table width="100%">
+                    <tr>
+                        <td colspan="3">
+                            <h3>Profil</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h7>Nama </h7>
+                        </td>
+                        <td class="text-right">
+                            <h7 class="text-right">:&nbsp;&nbsp;</h7>
+                        </td>
+                        <td>
+                            <h7><% out.write(user.getNama());%></h7>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h7>Alamat </h7>
+                        </td>
+                        <td class="text-right">
+                            <h7 class="text-right">:&nbsp;&nbsp;</h7>
+                        </td>
+                        <td>
+                            <h7><% out.write(user.getAlamat());%></h7>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h7>Telepon </h7>
+                        </td>
+                        <td class="text-right">
+                        <h7 class="text-right">: &nbsp;&nbsp;</h7>
+                        </td>
+                        <td>
+                            <h7><% out.write(user.getTelepon());%></h7>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="editProfil.jsp" class="btn btn-default">Ubah</a>
+                        </td>
+                        <td>
+                            
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                </table>
         </div>
     </div>
+</div>                         
     
 <jsp:include page="layout/site/footer.jsp"></jsp:include>
