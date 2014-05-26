@@ -54,5 +54,6 @@
 	<script src="assets/js/main.js"></script>
         <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
 	<script src="assets/js/gmaps.js"></script>
+        <script src="assets/js/flatui-radio.js"></script>
 </body>
 </html>
